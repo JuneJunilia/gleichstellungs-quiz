@@ -45,16 +45,64 @@ Den **Inhalt** dieses Ordners (nicht den Ordner selbst) per FTP in ein Verzeichn
 Wichtig: **HTTPS ist Pflicht.** Über `http://` verweigert der Browser den Service
 Worker, dann läuft das Quiz nur mit Netzverbindung.
 
-## Aufs Tablet holen
+## Aufs iPad holen
 
-**iPad:** Adresse in **Safari** öffnen (nicht Chrome — nur Safari kann das) →
-Teilen-Symbol → *Zum Home-Bildschirm* → *Hinzufügen*.
+Adresse in **Safari** öffnen — Chrome kann das auf iOS nicht.
 
-**Android:** Adresse in **Chrome** öffnen → Drei-Punkte-Menü → *App installieren*
-bzw. *Zum Startbildschirm hinzufügen*.
+1. `https://junejunilia.github.io/gleichstellungs-quiz/` aufrufen
+2. Teilen-Symbol (Kasten mit Pfeil nach oben)
+3. *Zum Home-Bildschirm*
+4. Name bestätigen, *Hinzufügen*
 
-Danach einmal vom Startbildschirm starten, solange noch WLAN da ist. Ab dann läuft es
-auch ohne.
+## Auf Android als App installieren
+
+Hier gibt es einen Unterschied, den es auf dem iPad nicht gibt: Android kann entweder eine
+**echte App** installieren oder nur eine **Verknüpfung** anlegen. Die Verknüpfung sieht fast
+gleich aus, öffnet aber Chrome samt Adressleiste. Für den Stand ist das der falsche Weg.
+
+Voraussetzung ist **Chrome**, Samsung Internet oder Edge — nicht der Browser, der sich
+innerhalb einer anderen App öffnet (etwa aus WhatsApp heraus), und nicht der Dateimanager.
+
+1. Chrome öffnen und `https://junejunilia.github.io/gleichstellungs-quiz/` aufrufen
+2. Warten, bis das Quiz vollständig zu sehen ist — Chrome prüft in diesem Moment das Manifest
+3. Drei-Punkte-Menü oben rechts
+4. Dort steht je nach Chrome-Fassung **„App installieren"** oder **„Zum Startbildschirm hinzufügen"**
+5. Erscheint ein Dialog mit zwei Möglichkeiten: **„Installieren"** wählen, *nicht*
+   „Verknüpfung erstellen"
+
+|  | Installieren | Verknüpfung erstellen |
+|---|---|---|
+| Startet | im Vollbild, ohne Adressleiste | in Chrome, mit Adressleiste |
+| Symbol | eigenes rotes App-Symbol | Chrome-Symbol mit kleinem Aufkleber |
+| Zu finden in | App-Übersicht **und** Startbildschirm | nur Startbildschirm |
+| Läuft offline | ja | nein |
+
+**Woran man erkennt, dass es geklappt hat:** Nach dem Start ist oben **keine Adressleiste**
+zu sehen, und das Quiz taucht in der App-Übersicht (vom unteren Rand nach oben wischen)
+zwischen den normalen Apps auf.
+
+Bei Samsung-Tablets mit *Samsung Internet*: Menü unten rechts → *Seite hinzufügen zu* →
+*Startbildschirm*.
+
+### Wenn „Installieren" nicht angeboten wird
+
+Fast immer liegt es an einem dieser drei Punkte:
+
+- Die Adresse wurde über `http://` statt `https://` geöffnet
+- Es ist kein echtes Chrome, sondern ein In-App-Browser
+- Die Seite war noch nicht fertig geladen, als das Menü geöffnet wurde
+
+Am Quiz selbst liegt es nicht: Manifest, beide Symbolgrößen, das maskable-Symbol,
+`display: standalone` und der Service Worker sind vorhanden und gegen die Live-Adresse geprüft.
+
+### Wieder entfernen
+
+Symbol lange gedrückt halten → *Deinstallieren* (bei einer Verknüpfung heißt es *Entfernen*).
+
+## Nach dem Installieren — auf beiden Systemen
+
+Einmal vom Symbol starten, solange noch WLAN da ist. Dabei lädt sich das Quiz aufs Gerät.
+Ab dann läuft es auch ohne Netz.
 
 ## Für den Einsatz am Stand
 
