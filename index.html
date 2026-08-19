@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Vom Homescreen ohne Browserleiste starten: iOS braucht das erste,
+     Android das zweite. Beide Zeilen sind noetig. -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Quiz">
+<meta name="theme-color" content="#d90000">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.png" sizes="32x32">
+
+<title>Gleichstellungs-Quiz</title>
+<style>
+    body {
+        margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #fdfbf7; color: #333; overflow: hidden; touch-action: manipulation;
+        /* Kiosk: kein Gummiband-Scrollen, kein blauer Blitz beim Tippen,
+           nichts markierbar — sonst poppt bei Besuchern das iOS-Menue auf. */
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none; user-select: none;
+    }
+    .screen {
+        display: none; width: 100%;
+        height: 100vh; height: 100dvh;
+        flex-direction: column; align-items: center; text-align: center;
+        /* max() haelt den Inhalt unter der Statusleiste hervor (iPad, randlos) */
+        padding: max(clamp(16px, 4vmin, 40px), env(safe-area-inset-top, 0px))
+                 clamp(16px, 4vmin, 40px)
+                 max(clamp(16px, 4vmin, 40px), env(safe-area-inset-bottom, 0px));
+        box-sizing: border-box; overflow-y: auto; -webkit-overflow-scrolling: touch;
+        animation: fadeIn 0.4s ease-in-out;
+    }
+    /* Zentriert, solange Platz ist — und schneidet nichts ab, wenn nicht.
+       Reines justify-content: center wuerde bei knappen Bildschirmen oben
+       abschneiden, und der Weiter-Knopf waere unerreichbar. */
+    .screen::before, .screen::after { content: ""; margin: auto; }
+    .active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Alle Groessen wachsen mit dem Bildschirm (vmin), bleiben aber in den
+       Grenzen der Vorlage. So passt es quer wie hoch, auf iPad wie auf
+       kleineren Android-Tablets. */
+    h1 { font-size: clamp(2rem, 7vmin, 4rem); color: #d90000; margin-bottom: clamp(10px, 2vmin, 20px); line-height: 1.2; text-transform: uppercase;}
+    h2 { font-size: clamp(1.6rem, 5.5vmin, 3.2rem); margin-bottom: clamp(14px, 3vmin, 30px); }
+    p { font-size: clamp(1.05rem, 3.2vmin, 2rem); line-height: 1.4; max-width: 900px; margin-bottom: clamp(18px, 4vmin, 40px); }
+
+    .btn {
+        background-color: #d90000; color: white; border: none;
+        padding: clamp(14px, 2.6vmin, 25px) clamp(28px, 6vmin, 60px);
+        font-size: clamp(1.1rem, 3.4vmin, 2.2rem); border-radius: 50px; cursor: pointer;
+        margin: clamp(10px, 2vmin, 20px);
+        box-shadow: 0 8px 15px rgba(217, 0, 0, 0.2); transition: all 0.1s; font-weight: bold;
+    }
+    .btn:active { transform: scale(0.95); box-shadow: 0 4px 8px rgba(217, 0, 0, 0.2); }
+
+    .option-btn {
+        background-color: white; color: #333; border: 4px solid #d90000;
+        padding: clamp(16px, 3.2vmin, 30px) clamp(20px, 4vmin, 40px);
+        font-size: clamp(1.2rem, 3.8vmin, 2.5rem); border-radius: 20px; cursor: pointer;
+        margin: clamp(8px, 1.6vmin, 15px); width: 100%; max-width: 800px; font-weight: bold;
+        transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .option-btn:active { background-color: #ffe6e6; transform: scale(0.98); }
+
+    .fact-box {
+        background-color: white; border-left: clamp(6px, 1.5vmin, 12px) solid #d90000;
+        padding: clamp(18px, 4vmin, 40px);
+        font-size: clamp(1.05rem, 3.2vmin, 2.2rem); text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        margin-bottom: clamp(20px, 5vmin, 50px); width: 100%; max-width: 900px; border-radius: 0 15px 15px 0;
+        line-height: 1.5;
+    }
+
+    .correct-text { color: #d90000; font-size: clamp(1.5rem, 5vmin, 3.5rem); font-weight: bold; margin-bottom: clamp(14px, 3vmin, 30px); }
+</style>
+</head>
+<body>
+
+<div id="screen-start" class="screen active">
+    <h1>Gleichstellungs-Quiz</h1>
+    <p>Ganze Arbeit. Halbe Stelle.<br>Was bleibt am Ende für die Hochschulsekretariate übrig?</p>
+    <button class="btn" onclick="showScreen('screen-q1')">Tippen zum Starten</button>
+</div>
+
+<!-- Question 1 -->
+<div id="screen-q1" class="screen">
+    <h2>Frage 1: Das Gehalt</h2>
+    <p>Was verdient eine Sekretärin auf einer <b>halben Stelle</b> (E6, Stufe 2) im Monat <b>brutto</b> ca.?</p>
+    <button class="option-btn" onclick="answerQ1()">A) ca. 2.150 €</button>
+    <button class="option-btn" onclick="answerQ1()">B) ca. 1.850 €</button>
+    <button class="option-btn" onclick="answerQ1()">C) ca. 1.480 €</button>
+</div>
+
+<div id="screen-r1" class="screen">
+    <div class="correct-text">Die bittere Realität: ca. 1.480 € brutto!</div>
+    <div class="fact-box">
+        <b>Fakt ist:</b> Frauendominierte Assistenzberufe werden chronisch unterbewertet. Die Verantwortung und Komplexität im Hochschulmanagement steigen enorm, aber die Eingruppierung bleibt im letzten Jahrhundert stecken.
+    </div>
+    <button class="btn" onclick="showScreen('screen-q2')">Weiter zur Rente</button>
+</div>
+
+<!-- Question 2 -->
+<div id="screen-q2" class="screen">
+    <h2>Frage 2: Die Rente</h2>
+    <p>Was erhält diese Sekretärin nach 40 Arbeitsjahren (E6, 50%) voraussichtlich an gesetzlicher Rente <b>netto</b>?</p>
+    <button class="option-btn" onclick="answerQ2()">A) ca. 1.150 €</button>
+    <button class="option-btn" onclick="answerQ2()">B) ca. 900 €</button>
+    <button class="option-btn" onclick="answerQ2()">C) ca. 600 €</button>
+</div>
+
+<div id="screen-r2" class="screen">
+    <div class="correct-text">Erschütternd, aber wahr: ca. 600 € netto!</div>
+    <div class="fact-box">
+        <b>Fakt ist:</b> Strukturelle Altersarmut ist weiblich. Veraltete Tätigkeitsmerkmale und die fehlende Möglichkeit auf Höhergruppierung führen für viele Beschäftigte direkt in die Rentenfalle.
+    </div>
+    <button class="btn" onclick="showScreen('screen-final')">Unser Fazit</button>
+</div>
+
+<!-- Final Screen -->
+<div id="screen-final" class="screen">
+    <h1 style="color: #333;">Es reicht! Wir fordern:</h1>
+    <div class="fact-box" style="text-align: center; border-left: none; border-top: clamp(6px, 1.5vmin, 12px) solid #d90000; border-radius: 15px; padding-top: clamp(24px, 5vmin, 50px);">
+        <ul style="list-style-type: none; padding: 0; margin: 0; font-size: clamp(1.2rem, 3.8vmin, 2.5rem); font-weight: bold;">
+            <li style="margin-bottom: 20px; color: #d90000;">✓ Aufwertung des Berufsbildes</li>
+            <li style="margin-bottom: 20px; color: #d90000;">✓ Zeitgemäße Höhergruppierungen</li>
+            <li style="color: #d90000;">✓ Änderung der Entgeltordnung</li>
+        </ul>
+    </div>
+    <p style="font-weight: bold; font-size: clamp(1.1rem, 3.4vmin, 2.2rem);">Unterstützen Sie uns! Sprechen Sie uns am Stand an.</p>
+    <button class="btn" style="background-color: #555; padding: clamp(12px, 2.2vmin, 20px) clamp(22px, 4.5vmin, 40px); font-size: clamp(0.95rem, 2.4vmin, 1.5rem);" onclick="showScreen('screen-start')">Quiz für nächste Person neu starten</button>
+</div>
+
+<script>
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function answerQ1() { showScreen('screen-r1'); }
+    function answerQ2() { showScreen('screen-r2'); }
+
+    // Macht die App offline lauffaehig. Ohne diesen Teil braucht das Tablet
+    // beim Start jedes Mal Netz — am Stand genau der falsche Moment.
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('sw.js').catch(function (fehler) {
+                // Beim Oeffnen als lokale Datei schlaegt das immer fehl; das ist
+                // in Ordnung. Nicht stumm schlucken, damit echte Fehler auffallen.
+                console.warn('Service Worker nicht registriert:', fehler);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
