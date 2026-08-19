@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz aufs Tablet legen</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #fdfbf7; color: #1a1a1a; line-height: 1.5;
+    padding: clamp(20px, 5vw, 56px); max-width: 1000px; margin: 0 auto;
+  }
+  h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); color: #d90000; text-transform: uppercase; line-height: 1.15; }
+  .unterzeile { font-size: clamp(1rem, 2.6vw, 1.15rem); margin: 10px 0 32px; }
+
+  .adresse {
+    display: block; background: #d90000; color: #fff; text-decoration: none;
+    padding: 20px 24px; border-radius: 14px; margin-bottom: 36px; text-align: center;
+  }
+  .adresse b { display: block; font-size: clamp(1.05rem, 3vw, 1.4rem); word-break: break-all; }
+  .adresse span { display: block; font-size: 0.9rem; opacity: 0.85; margin-top: 6px; }
+
+  .spalten { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .karte { background: #fff; border-top: 8px solid #d90000; border-radius: 0 0 14px 14px; padding: 24px; box-shadow: 0 6px 18px rgba(0,0,0,.07); }
+  .karte h2 { font-size: 1.35rem; margin-bottom: 4px; }
+  .karte .womit { color: #d90000; font-weight: bold; font-size: .95rem; margin-bottom: 16px; }
+  ol { margin-left: 20px; }
+  li { margin-bottom: 11px; }
+
+  .abschluss { background: #fff; border-left: 8px solid #1a1a1a; padding: 20px 24px; margin-top: 32px; border-radius: 0 12px 12px 0; }
+  .abschluss b { color: #d90000; }
+
+  @media print {
+    body { padding: 0; background: #fff; }
+    .karte, .abschluss { box-shadow: none; border-color: #000; }
+    .adresse { background: #fff; color: #000; border: 2px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Das Quiz aufs Tablet legen</h1>
+<p class="unterzeile">Danach startet es vom Startbildschirm wie eine App — im Vollbild und ohne Internet.</p>
+
+<a class="adresse" href="https://junejunilia.github.io/gleichstellungs-quiz/" target="_blank" rel="noopener">
+  <b>junejunilia.github.io/gleichstellungs-quiz/</b>
+  <span>Hier tippen, um das Quiz zu öffnen — diese Seite bleibt geöffnet</span>
+</a>
+
+<div class="spalten">
+
+  <div class="karte">
+    <h2>iPad</h2>
+    <div class="womit">mit Safari — nicht mit Chrome</div>
+    <ol>
+      <li>Die Adresse oben antippen</li>
+      <li>Unten (oder oben) auf das <b>Teilen-Symbol</b> tippen — das Kästchen mit dem Pfeil nach oben</li>
+      <li>In der Liste nach unten wischen bis <b>„Zum Home-Bildschirm“</b></li>
+      <li>Oben rechts auf <b>„Hinzufügen“</b></li>
+    </ol>
+  </div>
+
+  <div class="karte">
+    <h2>Android-Tablet</h2>
+    <div class="womit">mit Chrome</div>
+    <ol>
+      <li>Die Adresse oben antippen</li>
+      <li>Warten, bis das Quiz zu sehen ist</li>
+      <li>Oben rechts auf die <b>drei Punkte</b> tippen</li>
+      <li><b>„App installieren“</b> wählen — falls das nicht dasteht: „Zum Startbildschirm hinzufügen“</li>
+      <li>Mit <b>„Installieren“</b> bestätigen</li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="abschluss">
+  <b>Zum Schluss, noch mit WLAN:</b> das neue Symbol einmal antippen und das Quiz starten.
+  Dabei speichert es sich auf dem Tablet. Ab dann läuft es auch ohne Internet.
+</div>
+
+</body>
+</html>
