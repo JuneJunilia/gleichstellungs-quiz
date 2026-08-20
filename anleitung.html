@@ -38,11 +38,17 @@
   .abschluss { background: #fff; border-left: 8px solid #1a1a1a; padding: 20px 24px; margin-top: 32px; border-radius: 0 12px 12px 0; }
   .abschluss b { color: #d90000; }
 
+  .spaeter { background: #fff; border: 2px solid #e6e0d6; border-radius: 14px; padding: 22px 24px; margin-top: 20px; }
+  .spaeter h2 { font-size: 1.15rem; margin-bottom: 8px; }
+  .spaeter ol { margin: 12px 0 0 20px; }
+  .spaeter .klein { font-size: .88rem; color: #555; margin-top: 14px; }
+
   @media print {
     body { padding: 0; background: #fff; }
     .karte, .abschluss { box-shadow: none; border-color: #000; }
     .adresse { background: #fff; color: #000; border: 2px solid #000; }
     .qr { border: 1px solid #000; }
+    .spaeter { border-color: #000; }
   }
 </style>
 </head>
@@ -92,6 +98,23 @@
 <div class="abschluss">
   <b>Zum Schluss, noch mit WLAN:</b> das neue Symbol einmal antippen und das Quiz starten.
   Dabei speichert es sich auf dem Tablet. Ab dann läuft es auch ohne Internet.
+</div>
+
+<div class="spaeter">
+  <h2>Wenn das Quiz später geändert wurde</h2>
+  <p><b>Das Symbol bleibt — es muss nichts neu angelegt werden.</b> Die App holt sich die neue
+  Fassung selbst, dafür sind zwei Starts nötig:</p>
+  <ol>
+    <li><b>Mit WLAN</b> vom Symbol starten. Es steht noch der alte Stand da — das ist normal,
+    im Hintergrund lädt gerade die neue Fassung.</li>
+    <li>Die App <b>vollständig schließen</b> — nicht nur zum Startbildschirm zurück, sondern aus
+    der App-Übersicht wegwischen — und noch einmal starten. Jetzt ist die Änderung zu sehen.</li>
+  </ol>
+  <p class="klein">Falls danach immer noch der alte Stand erscheint:
+  iPad → <i>Einstellungen → Safari → Verlauf und Websitedaten löschen</i>.
+  Android → <i>Einstellungen → Apps → Quiz → Speicher → Cache leeren</i>. Danach die App starten.
+  Das Symbol zu löschen und neu anzulegen hilft dagegen <b>nicht</b> — der gespeicherte Stand
+  hängt am Browser, nicht am Symbol.</p>
 </div>
 
 </body>
