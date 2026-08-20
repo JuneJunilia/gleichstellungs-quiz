@@ -2,7 +2,7 @@
 //
 // Beim Aendern des Quiz die Zahl in SPEICHER hochzaehlen — sonst zeigen
 // Geraete, die die App schon einmal geoeffnet haben, weiter den alten Stand.
-const SPEICHER = 'quiz-v1';
+const SPEICHER = 'quiz-v2';
 
 const DATEIEN = [
   './',
